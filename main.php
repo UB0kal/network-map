@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body class="min-h-screen flex">
-    <div class="h-screen w-5/12 bg-gray-300" >
+    <div class="h-screen w-3/12 bg-gray-300" >
         <div class="flex p-5 items-center justify-center bg-slate-50">
             <div>
             <h1 class="text-xl mb-3">Create new device</h1>
@@ -37,7 +37,28 @@
             </div>
         </div>
     </div>
+    <div class="w-9/12 overflow-hidden">
+    <script src="//cdn.jsdelivr.net/npm/force-graph"></script>
+    <div id="graph"></div>
+    <script>
+    // Random tree
+    const N = 300;
+    const gData = {
+      nodes: [...Array(N).keys()].map(i => ({ id: i })),
+      links: [...Array(N).keys()]
+        .filter(id => id)
+        .map(id => ({
+          source: id,
+          target: Math.round(Math.random() * (id-1))
+        }))
+    };
 
+    const Graph = new ForceGraph()
+      (document.getElementById('graph'))
+        .linkDirectionalParticles(2)
+        .graphData(gData);
+  </script>
+    </div>
 <!-- logic for ip handling -->
     <script>
         const ipInput = document.getElementById('ipAddress');
