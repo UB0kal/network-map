@@ -13,6 +13,7 @@
             <div>
             <h1 class="text-xl mb-3 cursor-pointer" id="CreateNetwork">Create new network</h1>
             <form class="space-y-4 pb-5 hidden" id="CreateNetworkDiv">
+                <input class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm" type="text" id="NetworkName" name="NetworkName" placeholder="Network name">
                 <input class="border-2 rounded-md p-2 hover:scale-110 bg-slate-800 border-slate-800 text-gray-300" type="submit" value="create new network">
             </form>
             <h1 class="text-xl mb-3 cursor-pointer" id="CreateDevice">Create new device</h1>
