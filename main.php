@@ -8,9 +8,13 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body class="min-h-screen flex">
-    <div class="h-screen w-3/12 bg-gray-300" >
+    <div class="h-screen flex flex-col w-3/12 bg-gray-300" >
         <div class="flex p-5 items-center justify-center bg-slate-50">
             <div>
+            <h1 class="text-xl mb-3 cursor-pointer" id="CreateNetwork">Create new network</h1>
+            <form class="space-y-4 pb-5 hidden" id="CreateNetworkDiv">
+                <input class="border-2 rounded-md p-2 hover:scale-110 bg-slate-800 border-slate-800 text-gray-300" type="submit" value="create new network">
+            </form>
             <h1 class="text-xl mb-3 cursor-pointer" id="CreateDevice">Create new device</h1>
             <form class="space-y-4 hidden" id="CreateDeviceDiv">
                 <label class="block text-sm font-medium text-gray-700 mb-1" for="network">Network</label>
@@ -36,32 +40,28 @@
                 <select id="relation" name="relation" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm">
                     <option value="new">new</option>
                 </select>
-                <input class="border-2 rounded-md p-2 hover:scale-110 bg-slate-800 border-slate-800 text-gray-300" type="submit" value="create device">
+                <input class="border-2 p-2 hover:scale-110 bg-slate-800 border-slate-800 text-gray-300" type="submit" value="create device">
             </form>
+            </div>
+        </div>
+        <div class="flex flex-col mt-auto p-3 mb-2 items-center justify-center bg-slate-50">
+            <h1 class="text-xl mb-3 cursor-pointer" id="userWidget">Preferences</h1>
+            <div id="userWidgetDiv" class="hidden space-y-5">
+                <div class="flex hover:scale-125 items-center space-x-2">
+                    <img src="icons/user-icon.svg" alt="user" class="w-10 h-10">
+                    <h1 class="text-md">User Name</h1>
+                </div>
+                <form action=""class="flex items-center justify-center hover:scale-125 space-x-3 cursor-pointer">
+                    <label for="logOut" class="cursor-pointer">
+                        <img id="logOut" src="icons/log-out-icon.svg" alt="log-out" class="w-5 h-5">
+                    </label>
+                    <input type="submit" value="Log out" class="cursor-pointer text-red-600">
+                </form>
             </div>
         </div>
     </div>
     <div class="w-9/12 overflow-hidden">
-    <script src="//cdn.jsdelivr.net/npm/force-graph"></script>
-    <div id="graph"></div>
-    <script>
-    // Random tree
-    const N = 300;
-    const gData = {
-      nodes: [...Array(N).keys()].map(i => ({ id: i })),
-      links: [...Array(N).keys()]
-        .filter(id => id)
-        .map(id => ({
-          source: id,
-          target: Math.round(Math.random() * (id-1))
-        }))
-    };
-
-    const Graph = new ForceGraph()
-      (document.getElementById('graph'))
-        .linkDirectionalParticles(2)
-        .graphData(gData);
-  </script>
+    <?php include "graph.php" ?>
     </div>
 
 <!-- logic for navigation -->
@@ -69,12 +69,33 @@
     const CreateDevice = document.getElementById('CreateDevice')
     const CreateDeviceDiv = document.getElementById('CreateDeviceDiv')
     CreateDevice.addEventListener('click', function(){
-        console.log('hahahah')
         if  (CreateDeviceDiv.classList.contains('hidden')) {
             CreateDeviceDiv.classList.remove('hidden');
         }
         else {
             CreateDeviceDiv.classList.add('hidden')
+        }
+    })
+
+    const CreateNetwork = document.getElementById('CreateNetwork')
+    const CreateNetworkDiv = document.getElementById('CreateNetworkDiv')
+    CreateNetwork.addEventListener('click', function(){
+        if  (CreateNetworkDiv.classList.contains('hidden')) {
+            CreateNetworkDiv.classList.remove('hidden');
+        }
+        else {
+            CreateNetworkDiv.classList.add('hidden')
+        }
+    })
+
+    const userWidget = document.getElementById('userWidget')
+    const userWidgetDiv = document.getElementById('userWidgetDiv')
+    userWidget.addEventListener('click', function(){
+        if  (userWidgetDiv.classList.contains('hidden')) {
+            userWidgetDiv.classList.remove('hidden');
+        }
+        else {
+            userWidgetDiv.classList.add('hidden')
         }
     })
 
