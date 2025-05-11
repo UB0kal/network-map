@@ -25,7 +25,7 @@
         <div class="flex p-5 items-center justify-center bg-slate-50">
             <div>
             <h1 class="text-xl mb-3 cursor-pointer" id="CreateNetwork">Create new network</h1>
-            <form class="space-y-4 pb-5 hidden" id="CreateNetworkDiv">
+            <form action="./addnetwork.php" method="POST" class="space-y-4 pb-5 hidden" id="CreateNetworkDiv">
                 <input class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm" type="text" id="NetworkName" name="NetworkName" placeholder="Network name">
                 <input class="border-2 rounded-md p-2 hover:scale-110 bg-slate-800 border-slate-800 text-gray-300" type="submit" value="create new network">
             </form>
@@ -33,7 +33,7 @@
             <form class="space-y-4 hidden" id="CreateDeviceDiv">
                 <label class="block text-sm font-medium text-gray-700 mb-1" for="network">Network</label>
                 <select id="network" name="network" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm">
-                    <option value="new">new</option>
+                    
                 </select>
                 <label class="block text-sm font-medium text-gray-700 mb-1" for="device">Device</label>
                 <select name="device" id="device" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm">
@@ -52,7 +52,6 @@
                 <input class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm" type="text" id="description" name="description" placeholder="Description">
                 <label class="block text-sm font-medium text-gray-700 mb-1" for="relation">Connected to</label>
                 <select id="relation" name="relation" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm">
-                    <option value="new">new</option>
                 </select>
                 <input class="border-2 p-2 hover:scale-110 bg-slate-800 border-slate-800 text-gray-300" type="submit" value="create device">
             </form>
@@ -65,7 +64,7 @@
                     <img src="icons/user-icon.svg" alt="user" class="w-10 h-10">
                     <h1 class="text-md">User Name</h1>
                 </div>
-                <form action=""class="flex items-center justify-center hover:scale-125 space-x-3 cursor-pointer">
+                <form action="./logout.php"class="flex items-center justify-center hover:scale-125 space-x-3 cursor-pointer">
                     <label for="logOut" class="cursor-pointer">
                         <img id="logOut" src="icons/log-out-icon.svg" alt="log-out" class="w-5 h-5">
                     </label>
