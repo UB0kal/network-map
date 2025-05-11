@@ -1,4 +1,6 @@
-<?php 
+<?php
+    session_start();
+
     $DB_HOST = "localhost";
     $DB_NAME = "networkmap";
     $DB_USER = "root";
@@ -6,8 +8,50 @@
 
 
 
-    $conn = mysqli_connect("localhost","root","","networkmap");
 
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        session_destroy();
+        session_start();
+        $username = $_POST['username'];
+        $password = $_POST['password']; 
+        
+        $conn = mysqli_connect($DB_HOST,$DB_USER,$DB_PASS,$DB_NAME);
+
+        $escaped_username = mysqli_real_escape_string($conn, $username);
+        $sql = "SELECT id, username, email, password_hash FROM users WHERE username = '$escaped_username'";
+
+        $result = mysqli_query($conn, $sql);
+
+        if ($result) {
+            if (mysqli_num_rows($result) == 1) {
+                $user_data = mysqli_fetch_assoc($result);
+                if (password_verify($password, $user_data['password_hash'])) {
+                    session_regenerate_id(true);
+    
+                    $_SESSION["logged_in"] = true;
+                    $_SESSION["user_id"] = $user_data['id'];
+                    $_SESSION["username"] = $user_data['username'];
+    
+                    header("Location: main.php");
+                    exit;
+                } else {
+                    $_SESSION['login_error'] = "Invalid username or password.";
+                    header("Location: login.php");
+                    exit;
+                }
+            } else {
+                $_SESSION['login_error'] = "Invalid username or password.";
+                header("Location: login.php");
+                exit;
+            }
+            mysqli_free_result($result);
+        } else {
+            $_SESSION['login_error'] = "An error occurred during login. Please try again.";
+            header("Location: login.php");
+            exit;
+        }
+        header("Location: main.php");
+    }
 
 ?>
 
@@ -24,7 +68,9 @@
     <div class="p-6 max-w-sm mx-auto bg-white rounded-xl w-1/3 shadow-md scale-120">
         <h1 class="text-xl mx-auto justify-center items-center flex w-full">Login</h1>
         <form action="" method='POST'>
-            <label class="text-lg" for="username">username</label>
+            <h1 class="flex text-red-500 mx-auto justify-center"><?php $test = isset($_SESSION['login_error']) ? trim($_SESSION['login_error']) : ''; echo("$test") ?>
+            </h1>
+            <h1 class="flex text-green-500 mx-auto justify-center text-center"><?php $test = isset($_SESSION['registration_success']) ? trim($_SESSION['registration_success']) : ''; echo("$test") ?></h1>
             <br>
             <input class="border-solid  w-full border-2 rounded-lg p-1 my-2" id="username" type="text" name="username" placeholder="username">
             <br>
