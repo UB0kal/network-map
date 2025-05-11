@@ -1,3 +1,16 @@
+<?php 
+    $DB_HOST = "localhost";
+    $DB_NAME = "networkmap";
+    $DB_USER = "root";
+    $DB_PASS = "";
+
+
+
+    $conn = mysqli_connect("localhost","root","","networkmap");
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +34,7 @@
             <br>
             <a class="text-xs text-blue-400 justify-end flex w-full" href="/">forgot password?</a>
             <input class="border-2 mt-3 p-2 px-4 border-blue-500 bg-blue-500 hover:scale-105 rounded-xl" type="submit" value="Login">
-            <a class="text-xs text-green-400 pl-1 justify-start flex w-full" href="/register.php">register here</a>
+            <a class="text-xs text-green-400 pl-1 justify-start flex w-full" href="./register.php">register here</a>
         </form>
     </div>
 </body>

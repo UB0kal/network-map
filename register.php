@@ -33,7 +33,7 @@
             <br>
             <a class="text-xs text-blue-400 justify-end flex w-full" href="/">forgot password?</a>
             <input class="border-2 mt-3 p-2 px-4 border-blue-500 bg-blue-500 hover:scale-105 rounded-xl" type="submit" value="Register">
-            <a class="text-xs text-green-400 pl-1 justify-start flex w-full" href="/login.php">login here</a>
+            <a class="text-xs text-green-400 pl-1 justify-start flex w-full" href="./login.php">login here</a>
         </form>
     </div>
 </body>

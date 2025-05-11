@@ -1,3 +1,16 @@
+<?php
+    session_start();
+
+    if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+        header("Location: login.php");
+        exit();
+    }
+
+    $username = isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'User'; // Get username, default to 'User'
+    $user_id = $_SESSION['user_id'];
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
