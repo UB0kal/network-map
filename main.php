@@ -63,13 +63,13 @@
                 <h1 class="text-xl mb-3 cursor-pointer" id="CreateDevice">Create new device</h1>
                 <form action="./addDevice.php" method="POST" class="space-y-4 hidden" id="CreateDeviceDiv">
                     <label class="block text-sm font-medium text-gray-700 mb-1" for="device">Device</label>
-                    <select name="device" id="device" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm">
-                        <option value="new">Switch</option>
-                        <option value="new">Router</option>
-                        <option value="new">Hub</option>
-                        <option value="new">Repeater</option>
-                        <option value="new">Modem</option>
-                        <option value="new">Access point</option>
+                    <select name="type" id="device" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm">
+                        <option value="Switch">Switch</option>
+                        <option value="Routerew">Router</option>
+                        <option value="Hub">Hub</option>
+                        <option value="Repeater">Repeater</option>
+                        <option value="Modem">Modem</option>
+                        <option value="Access Point">Access point</option>
                     </select>
                     <label class="block text-sm font-medium text-gray-700 mb-1" for="name">Name</label>
                     <input class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm" type="text" id="name" name="name" placeholder="Name">
@@ -82,7 +82,7 @@
 
                 <h1 class="text-xl mb-3 cursor-pointer" id="CreateConnection">Connect</h1>
                 <form action="./addConnection.php" method="POST" class="space-y-4 hidden" id="CreateConnectionDiv">
-                    <select id="relation" name="from" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm">
+                    <select id="relationfrom" name="from" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm">
                         <?php 
                             $devices = json_decode($_COOKIE['devices'], true);
                             foreach($devices as $device){
@@ -90,8 +90,8 @@
                             }
                         ?>
                     </select>
-                    <label class="block text-sm font-medium text-gray-700 mb-1" for="relation">Is connected to:</label>
-                    <select id="relation" name="to" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm">
+                    <label class="block text-sm font-medium text-gray-700 mb-1" for="relationto">Is connected to:</label>
+                    <select id="relationto" name="to" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm">
                         <?php 
                             $devices = json_decode($_COOKIE['devices'], true);
                             foreach($devices as $device){

@@ -27,7 +27,7 @@ CREATE INDEX idx_networks_user_id ON networks(user_id);
 CREATE TABLE devices (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
     user_id BIGINT NOT NULL,
-    network_id BIGINT NULL,
+    network_id BIGINT NOT NULL,
     name VARCHAR(255),
     type VARCHAR(50) NOT NULL,
     ip_address VARCHAR(45),
@@ -35,7 +35,7 @@ CREATE TABLE devices (
     first_seen_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     last_seen_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (network_id) REFERENCES networks(id) ON DELETE SET NULL
+    FOREIGN KEY (network_id) REFERENCES networks(id) ON DELETE CASCADE
 );
 
 CREATE INDEX idx_devices_user_id ON devices(user_id);
@@ -47,13 +47,15 @@ CREATE INDEX idx_devices_ip_address ON devices(ip_address);
 CREATE TABLE connections (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
     user_id BIGINT NOT NULL,
+    network_id BIGINT NOT NULL,
     device_from_id BIGINT NULL,
     device_to_id BIGINT NULL,
     connected_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     disconnected_at TIMESTAMP NULL,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (device_from_id) REFERENCES devices(id) ON DELETE SET NULL,
-    FOREIGN KEY (device_to_id) REFERENCES devices(id) ON DELETE SET NULL
+    FOREIGN KEY (device_to_id) REFERENCES devices(id) ON DELETE SET NULL,
+    FOREIGN KEY (network_id) REFERENCES networks(id) ON DELETE CASCADE
 );
 
 CREATE INDEX idx_connections_user_id ON connections(user_id);

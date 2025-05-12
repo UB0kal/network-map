@@ -13,7 +13,7 @@
     
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-        $device_type = trim($_POST['device']);
+        $device_type = isset($_POST['type']) ? trim($_POST['type']) : header("Location: ./main.php") . end();
         $device_name = isset($_POST['name']) ? trim($_POST['name']) : header("Location: ./main.php") . end();
         $device_ip = isset($_POST['ipAddress']) ? trim($_POST['ipAddress']) : header("Location: ./main.php") . end();
         $device_description = isset($_POST['description']) ? trim($_POST['description'])  : header("Location: ./main.php") . end();
@@ -28,8 +28,7 @@
         $sql_network_id = $_SESSION['selected_network'];
     
         $sql_insert = "INSERT INTO devices (user_id, network_id, name, type, ip_address, description)
-                    VALUES ($user_id, $sql_network_id, $escaped_device_name, '$escaped_device_type', $escaped_device_ip, $escaped_device_description)";
-    
+                      VALUES ($user_id, $sql_network_id, '$escaped_device_name', '$escaped_device_type', '$escaped_device_ip', '$escaped_device_description')";
         if (mysqli_query($conn, $sql_insert)) {
             if (mysqli_affected_rows($conn) > 0) {
                 $message = "Device '<strong>" . htmlspecialchars($display_name) . "</strong>' created successfully!";
