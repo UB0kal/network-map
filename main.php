@@ -9,6 +9,8 @@
     $username = isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'User'; // Get username, default to 'User'
     $user_id = $_SESSION['user_id'];
 
+    require "getDbData.php";
+    
 ?>
 
 <!DOCTYPE html>
@@ -24,37 +26,62 @@
     <div class="h-screen flex flex-col w-3/12 bg-gray-300" >
         <div class="flex p-5 items-center justify-center bg-slate-50">
             <div>
+            <h1 class="text-xl mb-3 cursor-pointer">Select network:</h1>
+            <form action="./processDbData.php" method="POST">
+                <div class="flex mb-4 space-x-2">
+                <select id="network" name="networkName" 
+                class="mt-1block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm">
+                    <option value="null">select network</option>
+                    <?php 
+                        $listed_networks = getNetworks();
+                        foreach($listed_networks as $network){
+                            echo("<option value=". $network['id']);
+                            if (isset($_SESSION['selected_network'])){
+                                echo(" selected='selected'");
+                            } 
+                            echo(">" . $network['name'] . "</option>");
+                        }
+                    ?>
+                </select>
+                <input class="border-2 rounded-md px-2 hover:scale-110 bg-slate-800 border-slate-800 text-gray-300" type="submit" value="Go">
+                </div>
+            </form>
             <h1 class="text-xl mb-3 cursor-pointer" id="CreateNetwork">Create new network</h1>
             <form action="./addnetwork.php" method="POST" class="space-y-4 pb-5 hidden" id="CreateNetworkDiv">
                 <input class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm" type="text" id="NetworkName" name="NetworkName" placeholder="Network name">
                 <input class="border-2 rounded-md p-2 hover:scale-110 bg-slate-800 border-slate-800 text-gray-300" type="submit" value="create new network">
             </form>
-            <h1 class="text-xl mb-3 cursor-pointer" id="CreateDevice">Create new device</h1>
-            <form class="space-y-4 hidden" id="CreateDeviceDiv">
-                <label class="block text-sm font-medium text-gray-700 mb-1" for="network">Network</label>
-                <select id="network" name="network" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm">
-                    
-                </select>
-                <label class="block text-sm font-medium text-gray-700 mb-1" for="device">Device</label>
-                <select name="device" id="device" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm">
-                    <option value="new">Switch</option>
-                    <option value="new">Router</option>
-                    <option value="new">Hub</option>
-                    <option value="new">Repeater</option>
-                    <option value="new">Modem</option>
-                    <option value="new">Access point</option>
-                </select>
-                <label class="block text-sm font-medium text-gray-700 mb-1" for="name">Name</label>
-                <input class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm" type="text" id="name" name="name" placeholder="Name">
-                <label for="ipAddress" class="block text-sm font-medium text-gray-700 mb-1">IP Address</label>
-                <input type="text" id="ipAddress" name="ipAddress" placeholder="192.168.1.1" maxlength="15" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm">
-                <label class="block text-sm font-medium text-gray-700 mb-1" for="description">Description</label>
-                <input class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm" type="text" id="description" name="description" placeholder="Description">
-                <label class="block text-sm font-medium text-gray-700 mb-1" for="relation">Connected to</label>
-                <select id="relation" name="relation" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm">
-                </select>
-                <input class="border-2 p-2 hover:scale-110 bg-slate-800 border-slate-800 text-gray-300" type="submit" value="create device">
-            </form>
+            <div
+                <?php 
+                    if(!isset($_SESSION['selected_network'])){
+                        echo('class="hidden"');
+                    }
+                ?>
+
+                >
+                <h1 class="text-xl mb-3 cursor-pointer" id="CreateDevice">Create new device</h1>
+                <form class="space-y-4 hidden" id="CreateDeviceDiv">
+                    <label class="block text-sm font-medium text-gray-700 mb-1" for="device">Device</label>
+                    <select name="device" id="device" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm">
+                        <option value="new">Switch</option>
+                        <option value="new">Router</option>
+                        <option value="new">Hub</option>
+                        <option value="new">Repeater</option>
+                        <option value="new">Modem</option>
+                        <option value="new">Access point</option>
+                    </select>
+                    <label class="block text-sm font-medium text-gray-700 mb-1" for="name">Name</label>
+                    <input class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm" type="text" id="name" name="name" placeholder="Name">
+                    <label for="ipAddress" class="block text-sm font-medium text-gray-700 mb-1">IP Address</label>
+                    <input type="text" id="ipAddress" name="ipAddress" placeholder="192.168.1.1" maxlength="15" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm">
+                    <label class="block text-sm font-medium text-gray-700 mb-1" for="description">Description</label>
+                    <input class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm" type="text" id="description" name="description" placeholder="Description">
+                    <label class="block text-sm font-medium text-gray-700 mb-1" for="relation">Connected to</label>
+                    <select id="relation" name="relation" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm">
+                    </select>
+                    <input class="border-2 p-2 hover:scale-110 bg-slate-800 border-slate-800 text-gray-300" type="submit" value="create device">
+                </form>
+            </div>
             </div>
         </div>
         <div class="flex flex-col mt-auto p-3 mb-2 items-center justify-center bg-slate-50">
@@ -62,7 +89,7 @@
             <div id="userWidgetDiv" class="hidden space-y-5">
                 <div class="flex hover:scale-125 items-center space-x-2">
                     <img src="icons/user-icon.svg" alt="user" class="w-10 h-10">
-                    <h1 class="text-md">User Name</h1>
+                    <h1 class="text-md"><?= $_SESSION["username"]?></h1>
                 </div>
                 <form action="./logout.php"class="flex items-center justify-center hover:scale-125 space-x-3 cursor-pointer">
                     <label for="logOut" class="cursor-pointer">
@@ -76,6 +103,9 @@
     <div class="w-9/12 overflow-hidden">
     <?php include "graph.php" ?>
     </div>
+
+<!-- logic for selecting network -->
+
 
 <!-- logic for navigation -->
 <script>
