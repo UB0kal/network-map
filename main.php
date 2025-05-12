@@ -105,19 +105,26 @@
             </div>
             </div>
         </div>
-        <div class="flex flex-col mt-auto p-3 mb-2 items-center justify-center bg-slate-50">
-            <h1 class="text-xl mb-3 cursor-pointer" id="userWidget">Preferences</h1>
-            <div id="userWidgetDiv" class="hidden space-y-5">
-                <div class="flex hover:scale-125 items-center space-x-2">
-                    <img src="icons/user-icon.svg" alt="user" class="w-10 h-10">
-                    <h1 class="text-md"><?= $_SESSION["username"]?></h1>
-                </div>
-                <form action="./logout.php"class="flex items-center justify-center hover:scale-125 space-x-3 cursor-pointer">
-                    <label for="logOut" class="cursor-pointer">
-                        <img id="logOut" src="icons/log-out-icon.svg" alt="log-out" class="w-5 h-5">
-                    </label>
-                    <input type="submit" value="Log out" class="cursor-pointer text-red-600">
+        <div class="flex flex-col mt-auto w-full items-center justify-center ">
+            <div>
+                <form action="./removeDbLines.php" method="post">
+                    <input class="border-2 p-3 mb-3 hover:scale-110 rounded-lg bg-red-600 border-red-600 text-gray-200" type="submit" name="removeNetwork" value="delete network">
                 </form>
+            </div>
+            <div class="flex flex-col w-full p-5 items-center justify-center bg-slate-50">
+                <h1 class="text-xl mb-3 cursor-pointer" id="userWidget">Preferences</h1>
+                <div id="userWidgetDiv" class="hidden space-y-5">
+                    <div class="flex hover:scale-125 items-center space-x-2">
+                        <img src="icons/user-icon.svg" alt="user" class="w-10 h-10">
+                        <h1 class="text-md"><?= $_SESSION["username"]?></h1>
+                    </div>
+                    <form action="./logout.php"class="flex items-center justify-center hover:scale-125 space-x-3 cursor-pointer">
+                        <label for="logOut" class="cursor-pointer">
+                            <img id="logOut" src="icons/log-out-icon.svg" alt="log-out" class="w-5 h-5">
+                        </label>
+                        <input type="submit" value="Log out" class="cursor-pointer text-red-600">
+                    </form>
+                </div>
             </div>
         </div>
     </div>
