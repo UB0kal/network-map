@@ -106,6 +106,15 @@
             </div>
         </div>
         <div class="flex flex-col mt-auto w-full items-center justify-center ">
+            <h1 id="nodeName"></h1>
+            <h1 id="nodeIP"></h1>
+            <h1 id="nodeType"></h1>
+            <h1 id="nodeDescription"></h1>
+            <form class="hidden" id="nodeDelete" action='./removeDbLines.php' method='post'>
+                    <input class='border-2 scale-75 p-3 mb-3 hover:scale-100 rounded-lg bg-red-600 border-red-600 text-gray-200' type='submit' name='removeNode' value='delete Node'>
+                </form>
+        </div>
+        <div class="flex flex-col mt-auto w-full items-center justify-center ">
             <div>
                 <form action="./removeDbLines.php" method="post">
                     <input class="border-2 p-3 mb-3 hover:scale-110 rounded-lg bg-red-600 border-red-600 text-gray-200" type="submit" name="removeNetwork" value="delete network">

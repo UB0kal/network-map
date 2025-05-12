@@ -6,7 +6,7 @@
     <title>Graph with Icons by Node Name</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="main.css">
-    <script src="//unpkg.com/force-graph"></script>
+    <script src="//cdn.jsdelivr.net/npm/3d-force-graph"></script>
 </head>
 
 <body>
@@ -55,18 +55,25 @@
   const devices = getCookieAsJson('devices');
   const connections = getCookieAsJson('connections');
 
-  console.log(devices)
-  console.log(connections)
   const gData = {
     nodes: devices,
     links: connections
       
   };
 
-  const Graph = new ForceGraph()
+  const Graph = new ForceGraph3D()
     (document.getElementById('graph'))
       .linkDirectionalParticles(2)
-      .graphData(gData);
+      .graphData(gData)
+      .onNodeClick((node, event) => {
+        console.log(node)
+        document.cookie = "selectedNode=" + node['id'] + ";"
+        document.getElementById('nodeName').textContent = "Name: " + node['name'];
+        document.getElementById('nodeIP').textContent = "IP: " + node["ip"];
+        document.getElementById('nodeType').textContent = "Type: " + node["type"]
+        document.getElementById('nodeDescription').textContent = "Description: " + node["description"];
+        document.getElementById('nodeDelete').classList.remove('hidden');
+      })
 </script>
 
     </div>
