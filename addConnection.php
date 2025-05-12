@@ -11,7 +11,9 @@
     $message = '';
     $message_type = '';
     
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    include "GetDbData.php";
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_SESSION['selected_network'])) {
 
         $device_from = isset($_POST['from']) ? trim($_POST['from']) : header("Location: ./main.php") . end();
         $device_to = isset($_POST['to']) ? trim($_POST['to']) : header("Location: ./main.php") . end();
@@ -34,6 +36,7 @@
             mysqli_close($conn);
         } 
     }
+    getConnections();
     header("Location: ./main.php");
 
 ?>

@@ -19,6 +19,10 @@
     }
 
     function getDevices(){
+        if(!isset($_SESSION['selected_network'])){
+            return null;
+        }
+
         setcookie('devices', "");
         $conn = mysqli_connect($GLOBALS['DB_HOST'],$GLOBALS['DB_USER'],
                                 $GLOBALS['DB_PASS'],$GLOBALS['DB_NAME']);
@@ -37,11 +41,18 @@
                  $devices[] = $row;
              }
         }
+        else{
+            $devices = null;
+        }
         $devices = json_encode($devices);
         setcookie('devices', $devices);
     }
 
     function getConnections(){
+        if(!isset($_SESSION['selected_network'])){
+            return null;
+        }
+
         setcookie('connections', "");
         $conn = mysqli_connect($GLOBALS['DB_HOST'],$GLOBALS['DB_USER'],
                                 $GLOBALS['DB_PASS'],$GLOBALS['DB_NAME']);

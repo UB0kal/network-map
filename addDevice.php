@@ -11,6 +11,8 @@
     $message = '';
     $message_type = '';
     
+    include "GetDbData.php";
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $device_type = isset($_POST['type']) ? trim($_POST['type']) : header("Location: ./main.php") . end();
@@ -38,6 +40,7 @@
             mysqli_close($conn);
         } 
     }
+    getDevices();
     header("Location: ./main.php");
 
 ?>

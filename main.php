@@ -39,7 +39,7 @@
                         $listed_networks = getNetworks();
                         foreach($listed_networks as $network){
                             echo("<option value=". $network['id']);
-                            if ($_SESSION['selected_network'] == $network['id']){
+                            if (isset($_SESSION['selected_network']) and $_SESSION['selected_network'] == $network['id']){
                                 echo(" selected='selected'");
                             } 
                             echo(">" . $network['name'] . "</option>");
