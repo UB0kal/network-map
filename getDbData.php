@@ -20,29 +20,31 @@
 
     function getDevices(){
         if(!isset($_SESSION['selected_network'])){
-            return null;
-        }
 
-        setcookie('devices', "");
-        $conn = mysqli_connect($GLOBALS['DB_HOST'],$GLOBALS['DB_USER'],
-                                $GLOBALS['DB_PASS'],$GLOBALS['DB_NAME']);
-        $userId_for_string = (int)$_SESSION['user_id'];
-        $networkId_for_string = (int)$_SESSION['selected_network'];
-
-        $sql = "SELECT * FROM devices WHERE user_id = " 
-                . $userId_for_string . " AND network_id =" . $networkId_for_string ;
-
-        $result = mysqli_query($conn, $sql);
-
-        if ($result) {
-            $devices = [];
-
-            while ($row = mysqli_fetch_assoc($result)) {
-                 $devices[] = $row;
-             }
-        }
-        else{
             $devices = null;
+        }
+        else {
+            setcookie('devices', "");
+            $conn = mysqli_connect($GLOBALS['DB_HOST'],$GLOBALS['DB_USER'],
+                                    $GLOBALS['DB_PASS'],$GLOBALS['DB_NAME']);
+            $userId_for_string = (int)$_SESSION['user_id'];
+            $networkId_for_string = (int)$_SESSION['selected_network'];
+
+            $sql = "SELECT * FROM devices WHERE user_id = " 
+                    . $userId_for_string . " AND network_id =" . $networkId_for_string ;
+
+            $result = mysqli_query($conn, $sql);
+
+            if ($result) {
+                $devices = [];
+
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $devices[] = $row;
+                }
+            }
+            else{
+                $devices = null;
+            }
         }
         $devices = json_encode($devices);
         setcookie('devices', $devices);
@@ -50,26 +52,27 @@
 
     function getConnections(){
         if(!isset($_SESSION['selected_network'])){
-            return null;
+            $connections = null;
         }
+        else {
+            setcookie('connections', "");
+            $conn = mysqli_connect($GLOBALS['DB_HOST'],$GLOBALS['DB_USER'],
+                                    $GLOBALS['DB_PASS'],$GLOBALS['DB_NAME']);
+            $userId_for_string = (int)$_SESSION['user_id'];
+            $networkId_for_string = (int)$_SESSION['selected_network'];
 
-        setcookie('connections', "");
-        $conn = mysqli_connect($GLOBALS['DB_HOST'],$GLOBALS['DB_USER'],
-                                $GLOBALS['DB_PASS'],$GLOBALS['DB_NAME']);
-        $userId_for_string = (int)$_SESSION['user_id'];
-        $networkId_for_string = (int)$_SESSION['selected_network'];
+            $sql = "SELECT * FROM connections WHERE user_id = " 
+                    . $userId_for_string . " AND network_id =" . $networkId_for_string ;
 
-        $sql = "SELECT * FROM connections WHERE user_id = " 
-                . $userId_for_string . " AND network_id =" . $networkId_for_string ;
+            $result = mysqli_query($conn, $sql);
 
-        $result = mysqli_query($conn, $sql);
+            if ($result) {
+                $connections = [];
 
-        if ($result) {
-            $connections = [];
-
-            while ($row = mysqli_fetch_assoc($result)) {
-                 $connections[] = $row;
-             }
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $connections[] = $row;
+                }
+            }
         }
         $connections = json_encode($connections);
         setcookie('connections', $connections);
