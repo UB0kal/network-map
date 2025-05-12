@@ -10,6 +10,8 @@
     $user_id = $_SESSION['user_id'];
 
     require "getDbData.php";
+
+    getDevices();
     
 ?>
 
@@ -36,7 +38,7 @@
                         $listed_networks = getNetworks();
                         foreach($listed_networks as $network){
                             echo("<option value=". $network['id']);
-                            if (isset($_SESSION['selected_network'])){
+                            if ($_SESSION['selected_network'] == $network['id']){
                                 echo(" selected='selected'");
                             } 
                             echo(">" . $network['name'] . "</option>");
@@ -57,10 +59,9 @@
                         echo('class="hidden"');
                     }
                 ?>
-
-                >
+            >
                 <h1 class="text-xl mb-3 cursor-pointer" id="CreateDevice">Create new device</h1>
-                <form class="space-y-4 hidden" id="CreateDeviceDiv">
+                <form action="./addDevice.php" method="POST" class="space-y-4 hidden" id="CreateDeviceDiv">
                     <label class="block text-sm font-medium text-gray-700 mb-1" for="device">Device</label>
                     <select name="device" id="device" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm">
                         <option value="new">Switch</option>
@@ -76,10 +77,29 @@
                     <input type="text" id="ipAddress" name="ipAddress" placeholder="192.168.1.1" maxlength="15" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm">
                     <label class="block text-sm font-medium text-gray-700 mb-1" for="description">Description</label>
                     <input class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm" type="text" id="description" name="description" placeholder="Description">
-                    <label class="block text-sm font-medium text-gray-700 mb-1" for="relation">Connected to</label>
-                    <select id="relation" name="relation" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm">
-                    </select>
                     <input class="border-2 p-2 hover:scale-110 bg-slate-800 border-slate-800 text-gray-300" type="submit" value="create device">
+                </form>
+
+                <h1 class="text-xl mb-3 cursor-pointer" id="CreateConnection">Connect</h1>
+                <form action="./addConnection.php" method="POST" class="space-y-4 hidden" id="CreateConnectionDiv">
+                    <select id="relation" name="from" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm">
+                        <?php 
+                            $devices = json_decode($_COOKIE['devices'], true);
+                            foreach($devices as $device){
+                                echo("<option value='". $device['id'] . "'>" . $device['name'] . "</option>");
+                            }
+                        ?>
+                    </select>
+                    <label class="block text-sm font-medium text-gray-700 mb-1" for="relation">Is connected to:</label>
+                    <select id="relation" name="to" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm">
+                        <?php 
+                            $devices = json_decode($_COOKIE['devices'], true);
+                            foreach($devices as $device){
+                                echo("<option value='". $device['id'] . "'>" . $device['name'] . "</option>");
+                            }
+                        ?>
+                    </select>
+                    <input class="border-2 p-2 hover:scale-110 bg-slate-800 border-slate-800 text-gray-300" type="submit" value="Connect">
                 </form>
             </div>
             </div>
@@ -104,7 +124,6 @@
     <?php include "graph.php" ?>
     </div>
 
-<!-- logic for selecting network -->
 
 
 <!-- logic for navigation -->
@@ -117,6 +136,17 @@
         }
         else {
             CreateDeviceDiv.classList.add('hidden')
+        }
+    })
+
+    const CreateConnection = document.getElementById('CreateConnection')
+    const CreateConnectionDiv = document.getElementById('CreateConnectionDiv')
+    CreateConnection.addEventListener('click', function(){
+        if  (CreateConnectionDiv.classList.contains('hidden')) {
+            CreateConnectionDiv.classList.remove('hidden');
+        }
+        else {
+            CreateConnectionDiv.classList.add('hidden')
         }
     })
 

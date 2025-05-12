@@ -14,11 +14,51 @@
     <div id="graph"></div>
 
 <script>
-  // Random tree
+  function getCookieValue(name) {
+    const cookiesString = document.cookie || "";
+    const cookiesArray = cookiesString.split(';');
+    const prefix = name + "=";
+
+    for (let i = 0; i < cookiesArray.length; i++) {
+      let cookie = cookiesArray[i];
+      while (cookie.charAt(0) === ' ') {
+        cookie = cookie.substring(1);
+      }
+      if (cookie.indexOf(prefix) === 0) {
+        return cookie.substring(prefix.length, cookie.length);
+      }
+    }
+    return null;
+  }
+
+  function getCookieAsJson(cookieName) {
+    const cookieValue = getCookieValue(cookieName);
+
+    if (cookieValue === null) {
+      console.log(`Cookie "${cookieName}" not found.`);
+      return null;
+    }
+
+    try {
+      const decodedValue = decodeURIComponent(cookieValue);
+
+      const jsonData = JSON.parse(decodedValue);
+      return jsonData;
+
+    } catch (error) {
+      console.error(`Error parsing JSON from cookie "${cookieName}":`, error);
+      console.error("Original cookie value:", cookieValue);
+      return null;
+    }
+  }
+
+  const dataArrayFromCookie = getCookieAsJson('devices');
+  console.log(dataArrayFromCookie);
+
   const N = 50;
   const gData = {
-    nodes: [...Array(N).keys()].map(i => ({ id: i })),
-    links: [...Array(N).keys()]
+    nodes: dataArrayFromCookie,
+    links: []
       .filter(id => id)
       .map(id => ({
         source: id,
