@@ -48,13 +48,13 @@ CREATE TABLE connections (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
     user_id BIGINT NOT NULL,
     network_id BIGINT NOT NULL,
-    device_from_id BIGINT NULL,
-    device_to_id BIGINT NULL,
+    source BIGINT NULL,
+    target BIGINT NULL,
     connected_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     disconnected_at TIMESTAMP NULL,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (device_from_id) REFERENCES devices(id) ON DELETE SET NULL,
-    FOREIGN KEY (device_to_id) REFERENCES devices(id) ON DELETE SET NULL,
+    FOREIGN KEY (source) REFERENCES devices(id) ON DELETE SET NULL,
+    FOREIGN KEY (target) REFERENCES devices(id) ON DELETE SET NULL,
     FOREIGN KEY (network_id) REFERENCES networks(id) ON DELETE CASCADE
 );
 

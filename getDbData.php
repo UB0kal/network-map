@@ -40,4 +40,27 @@
         $devices = json_encode($devices);
         setcookie('devices', $devices);
     }
+
+    function getConnections(){
+        setcookie('connections', "");
+        $conn = mysqli_connect($GLOBALS['DB_HOST'],$GLOBALS['DB_USER'],
+                                $GLOBALS['DB_PASS'],$GLOBALS['DB_NAME']);
+        $userId_for_string = (int)$_SESSION['user_id'];
+        $networkId_for_string = (int)$_SESSION['selected_network'];
+
+        $sql = "SELECT * FROM connections WHERE user_id = " 
+                . $userId_for_string . " AND network_id =" . $networkId_for_string ;
+
+        $result = mysqli_query($conn, $sql);
+
+        if ($result) {
+            $connections = [];
+
+            while ($row = mysqli_fetch_assoc($result)) {
+                 $connections[] = $row;
+             }
+        }
+        $connections = json_encode($connections);
+        setcookie('connections', $connections);
+    }
 ?>

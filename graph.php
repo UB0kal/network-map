@@ -52,18 +52,15 @@
     }
   }
 
-  const dataArrayFromCookie = getCookieAsJson('devices');
-  console.log(dataArrayFromCookie);
+  const devices = getCookieAsJson('devices');
+  const connections = getCookieAsJson('connections');
 
-  const N = 50;
+  console.log(devices)
+  console.log(connections)
   const gData = {
-    nodes: dataArrayFromCookie,
-    links: []
-      .filter(id => id)
-      .map(id => ({
-        source: id,
-        target: Math.round(Math.random() * (id-1))
-      }))
+    nodes: devices,
+    links: connections
+      
   };
 
   const Graph = new ForceGraph()

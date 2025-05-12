@@ -12,6 +12,7 @@
     require "getDbData.php";
 
     getDevices();
+    getConnections();
     
 ?>
 

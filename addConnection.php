@@ -22,7 +22,7 @@
         $escaped_device_from = mysqli_real_escape_string($conn, $device_from);
         $escaped_device_to = mysqli_real_escape_string($conn, $device_to);
     
-        $sql_insert = "INSERT INTO connections (user_id, network_id, device_from_id, device_to_id)
+        $sql_insert = "INSERT INTO connections (user_id, network_id, source, target)
                     VALUES ($user_id, $sql_network_id, $escaped_device_from, $escaped_device_to)";
     
         if (mysqli_query($conn, $sql_insert)) {
