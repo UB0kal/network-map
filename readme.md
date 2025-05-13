@@ -1,15 +1,60 @@
 # NetworkMap    
-## Introduction
-I have chosen this theme because I wantedt play with 3d-force-graph, application is written in php and it includes js liberary for 3d-graph,    In application you can recreate networks add devices, and their cnnections.
-## Features
-- [x] create users
-- [x] create networks
-- [x] delete networks
-- [x] create devices
-- [x] delete devices
-- [x] connect devices
 
-### php querry for database creation:
+## Introduction
+I have chosen this theme because I wanted to play with <b><a href="https://github.com/vasturiano/3d-force-graph">3d-force-graph</a></b>. The application is written in PHP and it includes a JS library for the 3D graph. In the application, you can recreate networks, add devices, and their connections.
+
+## Consept
+
+In the app, you should be able to create networks, their devices, and connections. You should also be able to update properties and easily view them.
+
+For the database, I have used MySQL with phpMyAdmin.
+
+<b>NOTE: App was tested only with XAMPP</b> 
+
+## AI ussage
+
+I have used AI to get ideas on how to do different things, and I have written repetitive code with it. I also used it for grammar checks.
+
+I have used Google's Gemini 2.5 Pro (preview) with Canvas.
+
+## Features
+
+- [x] create users 
+    > users can login and register
+- [x] create networks
+    > users can create new networks
+- [x] delete networks
+    > users can delete their networks
+- [x] create devices
+    > users can create new devices
+- [x] delete devices
+    > users can delete their devices
+- [x] connect devices
+    > users can create relations between devices
+
+## Features to add
+
+- [ ] modify networks
+    > users should be able to modify network properties 
+- [ ] modify devices
+    > users should be able to modify devices properties
+- [ ] modify connections
+    > users should be able to modify connections
+- [ ] delete connections
+    > users should be able to dečete connections between devices
+- [ ] <b style="color: red">Improve sql injection security</b>
+    > code where the db calls are perforemd is vonareble to sql injection
+
+## usage
+
+project was only tested with XAMPP!!!
+
+put this project folder inside: <b>xampp\htdocs</b>
+
+### php querry for database creation
+run this querry for database creation:
+
+
 ```sql
 CREATE TABLE users (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
@@ -74,3 +119,12 @@ CREATE INDEX idx_connections_device_from_id ON connections(device_from_id);
 CREATE INDEX idx_connections_device_to_id ON connections(device_to_id);
 CREATE INDEX idx_connections_connected_at ON connections(connected_at);
 ```
+
+
+## Conclusion
+
+- [x] I have learend how to use <b>3d-forceGraph</b>
+- [x] have partaly learend how to  connect php with js
+
+for features that i added see <a href="#features">features</a>
+and for features i didn't manage to ad <a href="#features-to-add">features to add</a>
