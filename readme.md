@@ -1,3 +1,14 @@
+# NetworkMap    
+## Introduction
+I have chosen this theme because I wantedt play with 3d-force-graph, application is written in php and it includes js liberary for 3d-graph,    In application you can recreate networks add devices, and their cnnections.
+## Features
+- [x] create users
+- [x] create networks
+- [x] delete networks
+- [x] create devices
+- [x] delete devices
+- [x] connect devices
+
 ### php querry for database creation:
 ```sql
 CREATE TABLE users (
