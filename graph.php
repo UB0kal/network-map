@@ -69,7 +69,7 @@
         console.log(node)
         document.cookie = "selectedNode=" + node['id'] + ";"
         document.getElementById('nodeName').textContent = "Name: " + node['name'];
-        document.getElementById('nodeIP').textContent = "IP: " + node["ip"];
+        document.getElementById('nodeIP').textContent = "IP: " + node["ip_address"];
         document.getElementById('nodeType').textContent = "Type: " + node["type"]
         document.getElementById('nodeDescription').textContent = "Description: " + node["description"];
         document.getElementById('nodeDelete').classList.remove('hidden');

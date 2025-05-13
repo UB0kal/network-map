@@ -71,6 +71,7 @@
                         <option value="Repeater">Repeater</option>
                         <option value="Modem">Modem</option>
                         <option value="Access Point">Access point</option>
+                        <option value="End device">End device</option>
                     </select>
                     <label class="block text-sm font-medium text-gray-700 mb-1" for="name">Name</label>
                     <input class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none sm:text-sm" type="text" id="name" name="name" placeholder="Name">

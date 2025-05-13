@@ -3,7 +3,7 @@
 ## Introduction
 I have chosen this theme because I wanted to play with <b><a href="https://github.com/vasturiano/3d-force-graph">3d-force-graph</a></b>. The application is written in PHP and it includes a JS library for the 3D graph. In the application, you can recreate networks, add devices, and their connections.
 
-## Consept
+## Concept
 
 In the app, you should be able to create networks, their devices, and connections. You should also be able to update properties and easily view them.
 
